@@ -3,36 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prime Wave Labs</title>
+    <title>Prime Wave Labs — Apps that make life better</title>
+    <meta name="description" content="Prime Wave Labs builds thoughtful mobile apps for families and everyday life.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-        .container { max-width: 480px; text-align: center; padding: 40px 24px; }
-        .logo { width: 80px; height: 80px; border-radius: 20px; background: linear-gradient(135deg, #6c5ce7, #a29bfe); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; box-shadow: 0 8px 24px rgba(108, 92, 231, 0.3); }
-        .logo span { font-size: 36px; }
-        h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
-        .tagline { color: #6b7280; font-size: 16px; margin-bottom: 32px; }
-        .badge { display: inline-block; background: #6c5ce7; color: white; font-size: 13px; font-weight: 600; padding: 8px 20px; border-radius: 24px; margin-bottom: 40px; text-decoration: none; }
-        .links { display: flex; gap: 24px; justify-content: center; margin-top: 16px; }
-        .links a { color: #6c5ce7; text-decoration: none; font-size: 14px; font-weight: 500; }
-        .links a:hover { text-decoration: underline; }
-        .footer { margin-top: 48px; font-size: 13px; color: #9ca3af; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #0a0a1a; min-height: 100vh; overflow-x: hidden; }
+
+        /* Animated gradient background */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(ellipse at 30% 20%, rgba(108, 92, 231, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, rgba(162, 155, 254, 0.1) 0%, transparent 50%),
+                        #0a0a1a;
+        }
+
+        /* Subtle grid pattern */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .container {
+            max-width: 680px;
+            text-align: center;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Logo */
+        .logo {
+            width: 88px;
+            height: 88px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            box-shadow: 0 12px 40px rgba(108, 92, 231, 0.4);
+            animation: float 6s ease-in-out infinite;
+        }
+        .logo span { font-size: 40px; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .tagline {
+            color: #8b8fa3;
+            font-size: 18px;
+            margin-bottom: 48px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* App card */
+        .apps-section {
+            margin-bottom: 48px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #6c5ce7;
+            margin-bottom: 20px;
+        }
+
+        .app-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 24px 28px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .app-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(108, 92, 231, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(108, 92, 231, 0.15);
+        }
+
+        .app-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .app-icon span { font-size: 28px; }
+
+        .app-info { flex: 1; }
+
+        .app-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .app-desc {
+            font-size: 14px;
+            color: #8b8fa3;
+        }
+
+        .app-badge {
+            font-size: 11px;
+            font-weight: 600;
+            color: #6c5ce7;
+            background: rgba(108, 92, 231, 0.15);
+            padding: 4px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        .arrow {
+            color: #4a4d60;
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .app-card:hover .arrow {
+            transform: translateX(4px);
+            color: #6c5ce7;
+        }
+
+        /* Values */
+        .values {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .value-item {
+            text-align: center;
+        }
+
+        .value-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .value-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #8b8fa3;
+        }
+
+        /* Footer */
+        .footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer a {
+            color: #4a4d60;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover { color: #a29bfe; }
+
+        .footer .divider {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #2a2d3e;
+        }
+
+        .copyright {
+            font-size: 13px;
+            color: #3a3d4e;
+            margin-top: 24px;
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            h1 { font-size: 32px; }
+            .tagline { font-size: 16px; }
+            .app-card { flex-wrap: wrap; padding: 20px; }
+            .values { gap: 24px; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo"><span>🚀</span></div>
-        <h1>Prime Wave Labs</h1>
-        <p class="tagline">Building apps that make life better.</p>
-        <div class="links">
-            <a href="mailto:support@primewavlabs.com">Contact</a>
-        </div>
-        <div style="margin-top: 40px;">
-            <p style="font-size: 13px; color: #9ca3af; margin-bottom: 8px;">Our Apps</p>
-            <a href="/screenpeace/" style="color: #6c5ce7; text-decoration: none; font-size: 15px; font-weight: 500;">ScreenPeace</a>
-        </div>
-        <div class="footer">
-            <p>&copy; 2026 Prime Wave Labs</p>
+    <div class="hero">
+        <div class="container">
+            <div class="logo"><span>🚀</span></div>
+            <h1>Prime Wave Labs</h1>
+            <p class="tagline">Building thoughtful apps for families and everyday life.</p>
+
+            <div class="apps-section">
+                <p class="section-label">Our Apps</p>
+                <a href="/screenpeace/" class="app-card">
+                    <div class="app-icon"><span>🌙</span></div>
+                    <div class="app-info">
+                        <div class="app-name">ScreenPeace</div>
+                        <div class="app-desc">Family screen time management</div>
+                    </div>
+                    <span class="app-badge">Coming Soon</span>
+                    <span class="arrow">&rarr;</span>
+                </a>
+            </div>
+
+            <div class="values">
+                <div class="value-item">
+                    <div class="value-icon">🔒</div>
+                    <div class="value-text">Privacy First</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">🎨</div>
+                    <div class="value-text">Crafted with Care</div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">👨‍👩‍👧‍👦</div>
+                    <div class="value-text">Family Friendly</div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <a href="mailto:support@primewavlabs.com">Contact</a>
+                <div class="divider"></div>
+                <a href="/screenpeace/privacy.html">Privacy</a>
+                <div class="divider"></div>
+                <a href="/screenpeace/terms.html">Terms</a>
+            </div>
+
+            <p class="copyright">&copy; 2026 Prime Wave Labs</p>
         </div>
     </div>
 </body>
